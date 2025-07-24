@@ -10,13 +10,29 @@ def classify(logs):
     return labels
 
 
+# def classify_log(source, log_msg):
+#     if source == "LegacyCRM":
+#         label = classify_with_llm(log_msg)
+#     else:
+#         label = classify_with_regex(log_msg)
+#         if not label:
+#             label = classify_with_bert(log_msg)
+#     return label
+
+
+
 def classify_log(source, log_msg):
-    if source == "LegacyCRM":
+    # 1. Try regex
+    label = classify_with_regex(log_msg)
+    
+    # 2. If regex fails, try BERT
+    if not label or label == "Unclassified":
+        label = classify_with_bert(log_msg)
+    
+    # 3. If BERT also fails, use LLM (Groq)
+    if not label or label == "Unclassified":
         label = classify_with_llm(log_msg)
-    else:
-        label = classify_with_regex(log_msg)
-        if not label:
-            label = classify_with_bert(log_msg)
+    
     return label
 
 def classify_csv(input_file):

@@ -10,15 +10,22 @@ groq = Groq()
 
 def classify_with_llm(log_msg):
     """
-    Generate a variant of the input sentence. For example,
-    If input sentence is "User session timed out unexpectedly, user ID: 9250.",
-    variant would be "Session timed out for user 9251"
+    Use LLM to classify a log message if regex and BERT fail.
     """
-    prompt = f'''Classify the log message into one of these categories: 
-    (1) Workflow Error, (2) Deprecation Warning.
-    If you can't figure out a category, use "Unclassified".
-    Put the category inside <category> </category> tags. 
-    Log message: {log_msg}'''
+
+    prompt = f"""Classify the following log message into one of these categories:
+    - Security Alert
+    - Workflow Error
+    - Login Activity
+    - File Operation
+    - Deprecation Warning
+    - Server/API Activity
+    - Backup Process
+    If unsure, classify as "Unclassified".
+    Put the result inside <category></category> tags.
+    
+    Log message: {log_msg}
+    """
 
     chat_completion = groq.chat.completions.create(
         messages=[{"role": "user", "content": prompt}],
