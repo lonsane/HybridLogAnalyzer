@@ -1,9 +1,5 @@
-Here’s a professional and complete `README.md` file tailored for your **Hybrid Log Classification System** project. You can directly upload this to your GitHub repository:
 
----
-
-```markdown
-# 🔍 Hybrid Log Classification System
+## 🔍 Hybrid Log Classification System
 
 A powerful and flexible system for classifying software-generated log messages using a hybrid approach combining **Regex**, **BERT**, and **LLM** (Groq API). Designed to support multiple log sources with custom logic for each, including legacy systems.
 
